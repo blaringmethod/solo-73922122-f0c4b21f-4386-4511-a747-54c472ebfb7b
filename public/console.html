@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>字幕控台</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎛️</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🎛️ 字幕控台</h1>
+    <span class="sub" id="topSub">双语字幕操作台</span>
+    <div class="spacer"></div>
+    <span class="conn" id="connState"><span class="dot"></span><span id="connText">连接中…</span></span>
+    <nav>
+      <a href="/projection" target="_blank" rel="noopener">投影页 ↗</a>
+      <a href="/demo" target="_blank" rel="noopener">演示页 ↗</a>
+      <a href="/script">台词本</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="console-grid">
+      <!-- 左列：操作 -->
+      <section>
+        <div class="card">
+          <div class="console-head">
+            <div class="console-id" id="consoleIdBadge">A</div>
+            <div class="titles">
+              <h2 id="consoleTitle">控台 A</h2>
+              <div class="kv">
+                <span class="badge" id="dutyBadge"><span class="dot"></span><span id="dutyText">读取状态中…</span></span>
+                <span>任期 <b id="epochText">-</b></span>
+                <span>版本 rev=<b id="revText">-</b></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="air-preview" aria-live="polite">
+            <div class="zh" id="airZh">—</div>
+            <div class="en" id="airEn"></div>
+            <div class="idx" id="airIndex"></div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn" id="btnPrev" type="button">↶ 上一句</button>
+            <button class="btn primary big" id="btnNext" type="button">⏭ 切下一句</button>
+          </div>
+
+          <div class="takeover-row">
+            <button class="btn primary" id="btnTakeover" type="button">🙋 申请接班</button>
+          </div>
+
+          <div class="result-box" id="resultBox" role="status" aria-live="polite"></div>
+        </div>
+
+        <div class="card demo-panel">
+          <h2>🧪 弱网 / 接班验证工具</h2>
+          <p class="hint">
+            ① 勾选下方选项后点「切下一句」，会模拟首次回执丢失，并用<b>同一指令号</b>自动重发。<br />
+            ② 点「准备 3 秒后发送的下一句」，立刻到控台 B 点「接班」：这条携带旧任期号的在途指令落地时会被作废；之后即使本台重新接班，重发它仍是同一份作废结果。
+          </p>
+          <label class="opt">
+            <input type="checkbox" id="optLoseAck" />
+            <span>让<b>下一条指令</b>模拟“回执丢失”：忽略第一次响应，700ms 后用同一指令号重发</span>
+          </label>
+          <div class="demo-actions">
+            <button class="btn ghost" id="btnDelayNext" type="button">⏱ 准备 3 秒后发送的「下一句」</button>
+            <button class="btn ghost" id="btnResend" type="button">🔁 重发上一条指令（同指令号）</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h2>📜 处理回执 / 审计流</h2>
+          <ul class="audit-list" id="auditList">
+            <li class="muted"><span></span><div>等待事件…</div></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 右列：台词列表 -->
+      <section class="card">
+        <h2>📖 共用台词本（点击任意一句 = 选句重播）</h2>
+        <div class="line-list" id="lineList"></div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="/console.js"></script>
+</body>
+</html>

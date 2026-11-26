@@ -1,0 +1,25 @@
+services:
+  subtitles:
+    build: .
+    image: bilingual-subtitle-console:1.0.0
+    container_name: bilingual-subtitles
+    init: true
+    ports:
+      # 宿主机端口可用 HOST_PORT=8080 docker compose up 覆盖
+      - "${HOST_PORT:-3000}:3000"
+    environment:
+      PORT: "3000"
+      HOST: "0.0.0.0"
+      DATA_FILE: /app/data/state.json
+    volumes:
+      - subtitle-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  subtitle-data:

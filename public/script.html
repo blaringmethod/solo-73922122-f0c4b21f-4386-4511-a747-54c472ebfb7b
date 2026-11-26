@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>台词本录入 · 双语字幕</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>📝 开演前 · 台词本录入</h1>
+    <span class="sub">一份有序的双语台词，保存后两个控台与投影共用</span>
+    <div class="spacer"></div>
+    <nav>
+      <a href="/console/A">控台 A ↗</a>
+      <a href="/console/B">控台 B ↗</a>
+      <a href="/projection" target="_blank" rel="noopener">投影页 ↗</a>
+      <a href="/demo">演示页</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="editor-grid">
+      <section class="card">
+        <h2>台词内容（按演出顺序，每行一句）</h2>
+        <textarea class="script-input" id="scriptInput" spellcheck="false"
+          placeholder="中文台词 | English line&#10;你好，世界。 | Hello, world.&#10;（只有中文也可以）"></textarea>
+        <div class="editor-actions">
+          <button class="btn primary" id="btnSave" type="button">💾 保存并让两控台共用</button>
+          <button class="btn ghost" id="btnReload" type="button">↩ 重新读取服务端版本</button>
+          <button class="btn ghost" id="btnSample" type="button">✨ 填入示例</button>
+          <span class="save-msg" id="saveMsg"></span>
+        </div>
+        <p class="hint" style="color:var(--text-faint);font-size:12.5px;margin-top:10px">
+          保存新台词本会把上屏位置重置为第 1 句（供开演前使用）；演出进行中请谨慎覆盖。
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>录入格式</h2>
+        <ul class="help">
+          <li>每行一句，顺序就是演出顺序。</li>
+          <li>中文与英文之间用竖线 <code>|</code> 分隔（也支持全角 <code>｜</code> 或 Tab）。</li>
+          <li>只有中文、没有英文也允许；英文留空即可。</li>
+          <li>空行会被忽略；最多 200 句，单句最多 2000 字。</li>
+          <li>保存后服务端集中存储并通过实时事件通知所有已打开的控台。</li>
+        </ul>
+        <h2 style="margin-top:22px">当前服务端台词本</h2>
+        <div class="kv" style="font-size:13.5px">
+          <span>共 <b id="serverCount">-</b> 句</span>
+          <span>rev=<b id="serverRev">-</b></span>
+          <span>当班 <b id="serverDuty">-</b></span>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="/script.js"></script>
+</body>
+</html>

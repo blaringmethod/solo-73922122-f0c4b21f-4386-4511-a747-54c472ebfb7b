@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>投影 · 双语字幕</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📽️</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="projection-body">
+  <main class="stage" id="stage" title="双击进入 / 退出全屏">
+    <div class="scene-label">Bilingual Subtitles</div>
+    <div class="pos" id="posLabel"></div>
+
+    <div class="cue" id="cue">
+      <div class="zh" id="cueZh">正在连接控台…</div>
+      <div class="divider" id="cueDivider"></div>
+      <div class="en" id="cueEn">Connecting…</div>
+    </div>
+  </main>
+
+  <div class="proj-hud">
+    <span class="conn open" id="connState"><span class="dot"></span><span id="connText">实时</span></span>
+    <span class="meta">rev=<b id="revLabel">0</b></span>
+    <span class="stale" id="staleLabel">已拦截迟到旧消息 ×<b id="staleCount">0</b></span>
+  </div>
+
+  <div class="proj-tools">
+    <button class="btn" id="btnInjectLate" type="button">🧪 模拟收到迟到旧消息</button>
+    <button class="btn" id="btnReconnect" type="button">🔌 模拟断连重连</button>
+    <button class="btn" id="btnClean" type="button">🧹 纯净模式</button>
+  </div>
+
+  <script type="module" src="/projection.js"></script>
+</body>
+</html>

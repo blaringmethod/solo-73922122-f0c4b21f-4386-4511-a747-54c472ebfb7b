@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>接班演示 · 双语字幕控台</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🧪 浏览器接班演示</h1>
+    <span class="sub">控台 A · 控台 B · 投影页实时联动（iframe 经父页中继事件，仅 1 条 SSE）</span>
+    <div class="spacer"></div>
+    <button class="btn primary" id="btnRun" type="button">▶ 自动播放接班剧本</button>
+    <button class="btn ghost" id="btnReset" type="button">↺ 重置演示数据</button>
+    <a class="btn small ghost" href="/" style="text-decoration:none">返回首页</a>
+  </header>
+
+  <main class="demo-layout">
+    <ol class="steps" id="steps">
+      <li data-step="0">① 重置 / A 当班</li>
+      <li data-step="1">② A 正常切句</li>
+      <li data-step="2">③ 回执丢失 · 同号重发不多切</li>
+      <li data-step="3">④ B 接班 · 字幕保留</li>
+      <li data-step="4">⑤ A 的在途旧指令作废</li>
+      <li data-step="5">⑥ A 再接班 · 旧指令仍作废</li>
+      <li data-step="6">⑦ 投影拦截迟到旧消息</li>
+      <li data-step="7">⑧ 重连同步 + 继续演出</li>
+    </ol>
+
+    <div class="demo-grid">
+      <section class="frame-wrap area-a">
+        <div class="frame-title">🎛️ 控台 A（1 号字幕员）<a href="/console/A" target="_blank" rel="noopener" style="margin-left:auto">独立窗口 ↗</a></div>
+        <iframe name="consoleA" title="控台 A" src="/console/A?embed=1&relay=1"></iframe>
+      </section>
+
+      <section class="frame-wrap area-b">
+        <div class="frame-title">🎚️ 控台 B（2 号字幕员）<a href="/console/B" target="_blank" rel="noopener" style="margin-left:auto">独立窗口 ↗</a></div>
+        <iframe name="consoleB" title="控台 B" src="/console/B?embed=1&relay=1"></iframe>
+      </section>
+
+      <section class="frame-wrap area-proj">
+        <div class="frame-title">📽️ 投影页<a href="/projection" target="_blank" rel="noopener" style="margin-left:auto">独立窗口 ↗</a></div>
+        <iframe name="projection" title="投影页" src="/projection?embed=1&relay=1"></iframe>
+      </section>
+
+      <section class="frame-wrap area-log">
+        <div class="frame-title">🧾 自动剧本执行记录（断言真实 API 响应与投影守卫）</div>
+        <div class="log-body" id="logBody"></div>
+      </section>
+    </div>
+
+    <p class="footer-note">
+      也可以纯手动演示：在 A 台点「切下一句」→ 在 A 台用「准备 3 秒后发送的下一句」并立刻到 B 台点接班 →
+      观察旧指令作废、投影不动 → A 台重新接班并「重发上一条指令」→ 仍是同一份作废结果。
+    </p>
+  </main>
+
+  <script type="module" src="/demo.js"></script>
+</body>
+</html>

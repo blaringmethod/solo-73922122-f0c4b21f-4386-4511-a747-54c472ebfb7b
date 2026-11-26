@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>双语字幕控台 · 接班演示</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🎬 双语字幕控台</h1>
+    <span class="sub">双控台共用台词本 · 任期围栏接班 · 指令幂等 · 投影防回退</span>
+    <div class="spacer"></div>
+    <nav>
+      <a href="/demo">接班自动演示</a>
+      <a href="/script">台词本</a>
+      <a href="/api/state" target="_blank" rel="noopener">API</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="mark">🎭</div>
+      <h1>字幕员中途接班，台词接得上</h1>
+      <p>开演前录入一份有序的双语台词，A / B 两个控台实时共用。</p>
+      <p>当班控台负责切下一句、选句重播；接班瞬间字幕不动，旧控台未生效的指令永久作废。</p>
+    </section>
+
+    <section class="entry-grid">
+      <a class="entry gold" href="/demo">
+        <div class="icon">🧪</div>
+        <h3>接班演示页（推荐）</h3>
+        <p>同一页并排打开控台 A、控台 B 与投影页，内置自动剧本，逐项验证接班、回执丢失重发与迟到消息拦截。</p>
+      </a>
+      <a class="entry" href="/console/A" target="_blank" rel="noopener">
+        <div class="icon">🎛️</div>
+        <h3>控台 A</h3>
+        <p>1 号字幕员。默认当班，可切下一句、上一句、点选任意台词重播，也可准备“延迟在途指令”。</p>
+      </a>
+      <a class="entry" href="/console/B" target="_blank" rel="noopener">
+        <div class="icon">🎚️</div>
+        <h3>控台 B</h3>
+        <p>2 号字幕员。一键接班后获得操作权与新的任期号；A 台随即锁定，其旧指令被围栏作废。</p>
+      </a>
+      <a class="entry" href="/projection" target="_blank" rel="noopener">
+        <div class="icon">📽️</div>
+        <h3>投影页</h3>
+        <p>大屏双语字幕。断线重连后直接显示当前句；按 revision 单调版本过滤，迟到旧消息无法让画面回跳。</p>
+      </a>
+      <a class="entry" href="/script" target="_blank" rel="noopener">
+        <div class="icon">📝</div>
+        <h3>台词本录入</h3>
+        <p>开演前按“中文 | English”逐行录入有序台词，保存后两个控台与投影立即共用同一份。</p>
+      </a>
+    </section>
+
+    <section class="story">
+      <div class="step">
+        <div class="n">1</div>
+        <h4>录入台词</h4>
+        <p>在「台词本」中逐行录入中英双语台词并保存，服务端集中存储，A / B 控台看到的是同一份有序台词。</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h4>当班切句</h4>
+        <p>当班控台点「切下一句」顺序推进，或在列表中点任意一句「重播此句」。每条指令带全局唯一指令号。</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h4>回执丢失重发</h4>
+        <p>服务端按指令号保存首次处理结果。即使切句响应丢失，用同一指令号重发也只返回原结果，不会多切一句。</p>
+      </div>
+      <div class="step">
+        <div class="n">4</div>
+        <h4>接班与作废</h4>
+        <p>B 台接班使任期 epoch +1，当前字幕原封不动。A 台未生效的旧任期指令返回 409 并记录在案；A 台再次接班后重发，仍是同一份“已作废”结果。</p>
+      </div>
+      <div class="step">
+        <div class="n">5</div>
+        <h4>投影不回跳</h4>
+        <p>每个状态带单调 revision。投影重连先拿权威快照；任何 revision 更小的迟到消息都被直接丢弃，可在右下角手动注入旧消息验证。</p>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      启动方式：<code>docker compose up --build</code>，然后打开
+      <a href="http://localhost:3000/demo">http://localhost:3000/demo</a><br />
+      不使用 Docker 时：<code>node server.js</code>（Node.js ≥ 20，零外部依赖）
+    </p>
+  </main>
+</body>
+</html>
